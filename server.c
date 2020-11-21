@@ -7,7 +7,7 @@
 
 int main()
 {
- int sockd;
+ int sockd,c,client,sockClient;
  struct sockaddr_in server;
  int port = 8888;
  sockd = socket(AF_INET,SOCK_STREAM,0);
@@ -35,6 +35,20 @@ int main()
  if(listen(sockd,3)<0)
  {
   printf("Listening failed to port %d",port);
+ }
+ else
+ {
+  printf("Listening to port %d",port);
  } 
+ c = sizeof(struct sockaddr_in);
+ sockClient = accept(sockd,(struct sockaddr *)&client,(socklen_t*)&c);
+
+ if(sockClient<0)
+ {
+  printf("Failed to accept\n");
+ }
+ else
+  printf("Client accepted\n");
+ close(sockd);
  return 0;
 }
